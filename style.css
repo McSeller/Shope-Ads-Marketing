@@ -1,0 +1,232 @@
+/* Definindo variáveis globais para cores e fontes */
+:root {
+    --primary-color: #EE4D2D; /* Laranja Shopee */
+    --secondary-color: #005f9c;
+    --dark-color: #333;
+    --light-color: #FFF;
+    --grey-color: #f4f6f8;
+    --border-color: #ddd;
+    --text-color: #555;
+    --font-family: 'Inter', sans-serif;
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Reset básico e estilos globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--grey-color);
+    color: var(--dark-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ======================= Estilos do Login ======================= */
+.login-box {
+    background-color: var(--light-color);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.login-box .logo {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.login-box h1 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.login-box p {
+    color: var(--text-color);
+    margin-bottom: 24px;
+}
+
+#login-form {
+    text-align: left;
+}
+
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* ======================= Estilos dos Botões ======================= */
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+.btn-primary:hover {
+    background-color: #d94324;
+}
+
+.btn-secondary {
+    background-color: var(--grey-color);
+    color: var(--dark-color);
+    width: auto;
+    padding: 8px 16px;
+}
+.btn-secondary:hover {
+    background-color: #e0e0e0;
+}
+
+
+/* ======================= Estilos do Dashboard ======================= */
+#dashboard-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dashboard-header {
+    background-color: var(--light-color);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.dashboard-main {
+    padding: 0 2rem;
+}
+
+.card {
+    background-color: var(--light-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 2rem;
+}
+
+/* ADIÇÃO: Estilos para o container do gráfico */
+.chart-container {
+    position: relative;
+    height: 400px; /* Altura máxima para o gráfico */
+    width: 100%;
+}
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.kpi-card h4 {
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.kpi-card p {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark-color);
+}
+
+.kpi-change {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.kpi-change.positive { color: #28a745; }
+.kpi-change.negative { color: #dc3545; }
+
+.table-card .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.table-card .btn { width: auto; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+tbody tr:hover {
+    background-color: var(--grey-color);
+}
+
+.status {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.status.active { background-color: #e4f8e9; color: #28a745; }
+.status.paused { background-color: #fff3e1; color: #ff9800; }
+.status.finished { background-color: #e9ecef; color: #6c757d; }
