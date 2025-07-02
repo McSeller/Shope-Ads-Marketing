@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopee Marketing Dados</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -32,101 +30,65 @@
         </div>
     </main>
 
-    <div id="dashboard-container" class="hidden">
-        <header class="dashboard-header">
-            <div class="header-content">
-                <h2>Shopee Marketing Dados</h2>
-                <div class="user-menu">
-                    <span id="user-email"></span>
-                    <button id="logout-btn" class="btn btn-secondary">Sair</button>
-                </div>
+    <div id="dashboard-container" class="dashboard-grid hidden">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>Shopee MKT</h3>
             </div>
-        </header>
+            <div class="sidebar-profile">
+                <div class="profile-avatar">U</div>
+                <span id="user-email-sidebar">usu@rio.com</span>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="active"><span>📊</span> Dashboard</a></li>
+                    <li><a href="#"><span>📈</span> Campanhas</a></li>
+                    <li><a href="#"><span>🎯</span> Anúncios</a></li>
+                    <li><a href="#"><span>👥</span> Públicos</a></li>
+                    <li><a href="#"><span>📄</span> Relatórios</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn btn-secondary"><span>🚪</span> Sair</button>
+            </div>
+        </aside>
 
-        <main class="dashboard-main">
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Dashboard de Performance</h1>
+                <p>Visão geral dos resultados das suas campanhas.</p>
+            </header>
+            
+            <section class="card filter-panel">
+                <div class="date-filter">
+                    <label for="start-date">De:</label>
+                    <input type="date" id="start-date" name="start-date">
+                </div>
+                <div class="date-filter">
+                    <label for="end-date">Até:</label>
+                    <input type="date" id="end-date" name="end-date">
+                </div>
+                <button id="fetch-data-btn" class="btn btn-primary">Puxar Dados</button>
+            </section>
+            
             <section class="kpi-grid">
-                <div class="card kpi-card">
-                    <h4>Investimento Total (Mês)</h4>
-                    <p>R$ 15.780,50</p>
-                    <span class="kpi-change positive">+5.2%</span>
-                </div>
-                <div class="card kpi-card">
-                    <h4>Impressões</h4>
-                    <p>2.1M</p>
-                    <span class="kpi-change positive">+8.1%</span>
-                </div>
-                <div class="card kpi-card">
-                    <h4>Cliques</h4>
-                    <p>32.450</p>
-                    <span class="kpi-change negative">-1.5%</span>
-                </div>
-                <div class="card kpi-card">
-                    <h4>CTR (Taxa de Clique)</h4>
-                    <p>1.55%</p>
-                    <span class="kpi-change positive">+0.12%</span>
-                </div>
+                <div id="kpi-investimento" class="card kpi-card"></div>
+                <div id="kpi-impressoes" class="card kpi-card"></div>
+                <div id="kpi-cliques" class="card kpi-card"></div>
+                <div id="kpi-ctr" class="card kpi-card"></div>
             </section>
 
             <section class="card chart-card">
-                <h3>Desempenho das Campanhas (Últimos 30 dias)</h3>
+                <h3>Desempenho das Campanhas</h3>
                 <div class="chart-container">
                     <canvas id="performanceChart"></canvas>
                 </div>
             </section>
-            
-            <section class="card table-card">
-                <div class="table-header">
-                    <h3>Relatório de Campanhas Ativas</h3>
-                    <button class="btn btn-primary">Exportar CSV</button>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Campanha</th>
-                            <th>Status</th>
-                            <th>Investimento</th>
-                            <th>Cliques</th>
-                            <th>Conversões</th>
-                            <th>ROAS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Promoção Dia das Mães</td>
-                            <td><span class="status active">Ativa</span></td>
-                            <td>R$ 4.500,00</td>
-                            <td>8.120</td>
-                            <td>320</td>
-                            <td>5.2x</td>
-                        </tr>
-                        <tr>
-                            <td>Queima de Estoque - Eletrônicos</td>
-                            <td><span class="status active">Ativa</span></td>
-                            <td>R$ 7.800,00</td>
-                            <td>15.600</td>
-                            <td>450</td>
-                            <td>4.1x</td>
-                        </tr>
-                        <tr>
-                            <td>Ofertas de Inverno</td>
-                            <td><span class="status paused">Pausada</span></td>
-                            <td>R$ 2.100,00</td>
-                            <td>3.400</td>
-                            <td>95</td>
-                            <td>3.5x</td>
-                        </tr>
-                         <tr>
-                            <td>Aniversário Shopee 2025</td>
-                            <td><span class="status finished">Finalizada</span></td>
-                            <td>R$ 10.000,00</td>
-                            <td>25.000</td>
-                            <td>980</td>
-                            <td>7.8x</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
         </main>
+    </div>
+
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
