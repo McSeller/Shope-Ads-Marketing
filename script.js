@@ -41,7 +41,6 @@ const App = {
         const thirtyDaysAgo = new Date();
         thirtyDaysAgo.setDate(today.getDate() - 30);
         
-        // Formato YYYY-MM-DD
         this.elements.endDateInput.value = today.toISOString().split('T')[0];
         this.elements.startDateInput.value = thirtyDaysAgo.toISOString().split('T')[0];
     },
@@ -68,6 +67,7 @@ const App = {
     },
 
     handleLogout() {
+        console.log('Sessão encerrada.');
         localStorage.removeItem('loggedInUser');
         this.showLogin();
     },
@@ -86,9 +86,19 @@ const App = {
 
         // Simula uma chamada de API com 1.5 segundos de atraso
         setTimeout(() => {
-            this.updateDashboardData();
-            this.setLoading(false);
-            console.log("Dados atualizados com sucesso!");
+            // ****** AQUI ESTÁ A CORREÇÃO PRINCIPAL ******
+            try {
+                // Código que pode falhar fica no bloco 'try'
+                this.updateDashboardData();
+                console.log("Dados atualizados com sucesso!");
+            } catch (error) {
+                // Se um erro ocorrer, ele é capturado aqui
+                console.error("Falha ao atualizar o dashboard:", error);
+                alert("Ocorreu um erro ao buscar os dados. Por favor, tente novamente.");
+            } finally {
+                // O bloco 'finally' executa SEMPRE, garantindo que o spinner seja escondido
+                this.setLoading(false);
+            }
         }, 1500);
     },
 
@@ -105,8 +115,11 @@ const App = {
     showLogin() {
         this.elements.dashboardContainer.classList.add('hidden');
         this.elements.loginContainer.classList.remove('hidden');
+        
+        // Boa prática: destruir o gráfico ao sair para liberar memória
         if (window.myChart) {
             window.myChart.destroy();
+            window.myChart = null; 
         }
     },
     
@@ -114,9 +127,7 @@ const App = {
         this.elements.loadingOverlay.classList.toggle('hidden', !isLoading);
     },
 
-    // Função central que gera dados fictícios e atualiza a UI
     updateDashboardData() {
-        // 1. Gerar dados fictícios
         const randomData = {
             investimento: (Math.random() * 20000 + 5000),
             impressoes: Math.floor(Math.random() * 2000000 + 1000000),
@@ -124,13 +135,11 @@ const App = {
         };
         randomData.ctr = (randomData.cliques / randomData.impressoes) * 100;
         
-        // 2. Atualizar os KPIs
         this.elements.kpis.investimento.innerHTML = `<h4>Investimento Total</h4><p>${randomData.investimento.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</p><span class="kpi-change positive">+${(Math.random()*10).toFixed(1)}%</span>`;
         this.elements.kpis.impressoes.innerHTML = `<h4>Impressões</h4><p>${(randomData.impressoes/1000000).toFixed(1)}M</p><span class="kpi-change positive">+${(Math.random()*10).toFixed(1)}%</span>`;
         this.elements.kpis.cliques.innerHTML = `<h4>Cliques</h4><p>${randomData.cliques.toLocaleString('pt-BR')}</p><span class="kpi-change negative">-${(Math.random()*5).toFixed(1)}%</span>`;
         this.elements.kpis.ctr.innerHTML = `<h4>CTR (Taxa de Clique)</h4><p>${randomData.ctr.toFixed(2)}%</p><span class="kpi-change positive">+${(Math.random()).toFixed(2)}%</span>`;
 
-        // 3. Atualizar o Gráfico
         this.renderPerformanceChart();
     },
 
@@ -142,14 +151,14 @@ const App = {
             labels: labels,
             datasets: [{
                 label: 'Investimento (R$)',
-                data: labels.map(() => Math.random() * 5000 + 1000), // Novos dados aleatórios
+                data: labels.map(() => Math.random() * 5000 + 1000),
                 borderColor: 'rgba(238, 77, 45, 1)',
                 backgroundColor: 'rgba(238, 77, 45, 0.1)',
                 tension: 0.3,
                 fill: true,
             }, {
                 label: 'Conversões',
-                data: labels.map(() => Math.random() * 150 + 20), // Novos dados aleatórios
+                data: labels.map(() => Math.random() * 150 + 20),
                 borderColor: 'rgba(0, 95, 156, 1)',
                 backgroundColor: 'rgba(0, 95, 156, 0.1)',
                 tension: 0.3,
@@ -158,11 +167,9 @@ const App = {
         };
 
         if (window.myChart) {
-            // Se o gráfico já existe, apenas atualizamos os dados. É mais performático.
             window.myChart.data = chartData;
             window.myChart.update();
         } else {
-            // Se não existe, criamos um novo.
             window.myChart = new Chart(ctx, {
                 type: 'line',
                 data: chartData,
